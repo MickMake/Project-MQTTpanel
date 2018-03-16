@@ -1,0 +1,21 @@
+{
+	"panel":
+	{
+		"hardware_mapping":"adafruit-hat-pwm",
+		"led_rgb_sequence":"RGB",
+		"rows":64,
+		"cols":64,
+		"chain_length":1,
+		"parallel":1,
+		"multiplexing":1,
+		"brightness":1,
+		"scan_mode":1,
+		"pwm_bits":1,
+		"pwm_lsb_nanoseconds":1,
+		"row_address_type":1,
+		"show_refresh_rate":"true",
+		"inverse_colors":"true"
+	}
+}
+
+

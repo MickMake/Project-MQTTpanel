@@ -1,0 +1,14 @@
+{
+	"project": "mickmake",
+	"name": "project-mqttpanel",
+	"version": "0.10",
+	"majorversion": "",
+	"latest": "1",
+	"network": "",
+	"ports": "-p 1883:1883",
+	"volumes": "-v \"$PWD/mosquitto\":\"$PWD/mosquitto\" -v mosquitto:/var/lib/mosquitto -v \"$HOME\":\"$HOME\"",
+	"restart": "--restart no",
+	"args": "--device /dev/mem:/dev/mem --privileged --user root",
+	"env": "VERSION"
+}
+
