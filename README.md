@@ -42,7 +42,7 @@ Publish MQTT messages using this container:
 
 ## Supported tags and respective Dockerfiles
 
-`0.10`, `latest` _([0.10/Dockerfile](https://github.com/mickmakes/Project-MQTTpanel/blob/master/layers/3.37/Dockerfile))_ 
+`0.10`, `latest` _([0.10/Dockerfile](https://github.com/MickMakes/Project-MQTTpanel/blob/master/Dockerfile))_ 
 
 
 ## Available MQTT messages:

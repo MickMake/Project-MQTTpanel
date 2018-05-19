@@ -19,6 +19,7 @@
 	},
 	"time":
 	{
+		"timezone":"Australia/Sydney",
 		"format":"%H:%M",
 		"dir":"/usr/local/share/rgbmatrix/fonts",
 		"font":"DroidSans-14pt.bdf",
@@ -29,6 +30,7 @@
 	},
 	"date":
 	{
+		"timezone":"Australia/Sydney",
 		"format":"%Y/%m/%d",
 		"dir":"/usr/local/share/rgbmatrix/fonts",
 		"font":"DroidSans-8pt.bdf",

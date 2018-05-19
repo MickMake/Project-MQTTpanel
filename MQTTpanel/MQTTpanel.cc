@@ -84,6 +84,7 @@ struct _Text
 	const char *format;
 	const char *dir;
 	const char *fontname;
+	const char *timezone;
 	rgb_matrix::Font ptrFont;
 	uint8_t red;
 	uint8_t green;
@@ -510,6 +511,13 @@ int initPanel(int argc, char *argv[])
 			json_object_object_add(rootObject, "color", keyObject);
 		}
 		convRGBstr((char *)json_object_get_string(keyObject), &displayTime.red, &displayTime.green, &displayTime.blue);
+
+		if (!json_object_object_get_ex(rootObject, "timezone", &keyObject))
+		{
+			keyObject = json_object_new_string(getenv("TZ"));
+			json_object_object_add(rootObject, "timezone", keyObject);
+		}
+		displayTime.timezone = json_object_get_boolean(keyObject);
 	}
 	// printf("JSON(time):%s\n", json_object_get_string(rootObject));
 
@@ -566,6 +574,13 @@ int initPanel(int argc, char *argv[])
 			json_object_object_add(rootObject, "color", keyObject);
 		}
 		convRGBstr((char *)json_object_get_string(keyObject), &displayDate.red, &displayDate.green, &displayDate.blue);
+
+		if (!json_object_object_get_ex(rootObject, "timezone", &keyObject))
+		{
+			keyObject = json_object_new_string(getenv("TZ"));
+			json_object_object_add(rootObject, "timezone", keyObject);
+		}
+		displayDate.timezone = json_object_get_boolean(keyObject);
 	}
 	// printf("JSON(date):%s\n", json_object_get_string(rootObject));
 
@@ -622,6 +637,8 @@ int initPanel(int argc, char *argv[])
 			json_object_object_add(rootObject, "color", keyObject);
 		}
 		convRGBstr((char *)json_object_get_string(keyObject), &displayText.red, &displayText.green, &displayText.blue);
+
+		displayText.timezone = "";	// Not used for plain text.
 	}
 	// printf("JSON(date):%s\n", json_object_get_string(rootObject));
 
@@ -860,6 +877,8 @@ void DisplayAnimation(RGBMatrix *matrix, FrameCanvas *offscreen_canvas, int vsyn
 			// Display the time.
 			if (displayTime.show)
 			{
+				setenv("TZ", displayTime.zone, 1);
+				tzset();
 				time(&rawtime);
 				now = localtime(&rawtime);
 				strftime(theTime, 80, displayTime.format, now);
@@ -872,6 +891,8 @@ void DisplayAnimation(RGBMatrix *matrix, FrameCanvas *offscreen_canvas, int vsyn
 			// Display the date.
 			if (displayDate.show)
 			{
+				setenv("TZ", displayDate.zone, 1);
+				tzset();
 				time(&rawtime);
 				now = localtime(&rawtime);
 				strftime(theTime, 80, displayDate.format, now);
@@ -1013,6 +1034,10 @@ void message_callback(struct mosquitto *mosq, void *obj, const struct mosquitto_
 	if (match)
 		convRGBstr((char *)message->payload, &displayTime.red, &displayTime.green, &displayTime.blue);
 
+	mosquitto_topic_matches_sub("/display/time/zone", message->topic, &match);
+	if (match)strcpy
+		strcpy((char *)displayTime.timezone, (char *)message->payload);
+
 
 	// Date topics.
 	mosquitto_topic_matches_sub("/display/date/format", message->topic, &match);
@@ -1045,6 +1070,10 @@ void message_callback(struct mosquitto *mosq, void *obj, const struct mosquitto_
 	mosquitto_topic_matches_sub("/display/date/color", message->topic, &match);
 	if (match)
 		convRGBstr((char *)message->payload, &displayDate.red, &displayDate.green, &displayDate.blue);
+
+	mosquitto_topic_matches_sub("/display/date/zone", message->topic, &match);
+	if (match)strcpy
+		strcpy((char *)displayDate.timezone, (char *)message->payload);
 
 
 	// Text topics.
