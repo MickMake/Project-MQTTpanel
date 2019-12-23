@@ -14,12 +14,12 @@
 	"background":
 	{
 		"dir":"/usr/local/share/rgbmatrix/images",
-		"image":"Alien.gif",
+		"image":"Hei.jpg",
 		"show":1
 	},
 	"time":
 	{
-		"timezone":"Australia/Sydney",
+		"timezone":"Europe/Amsterdam",
 		"format":"%H:%M",
 		"dir":"/usr/local/share/rgbmatrix/fonts",
 		"font":"DroidSans-14pt.bdf",
@@ -30,7 +30,7 @@
 	},
 	"date":
 	{
-		"timezone":"Australia/Sydney",
+		"timezone":"Europe/Amsterdam",
 		"format":"%Y/%m/%d",
 		"dir":"/usr/local/share/rgbmatrix/fonts",
 		"font":"DroidSans-8pt.bdf",
