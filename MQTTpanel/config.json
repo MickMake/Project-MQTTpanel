@@ -4,9 +4,9 @@
 		"hardware_mapping":"adafruit-hat-pwm",
 		"led_rgb_sequence":"RGB",
 		"rows":64,
-		"cols":64,
+		"cols":128,
 		"chain_length":1,
-		"parallel":1,
+		"parallel":2,
 		"brightness":100,
 		"scan_mode":1,
 		"show_refresh_rate":0
